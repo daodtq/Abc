@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "189899517898",
+    "firebase_url": "https://duanversion1-default-rtdb.firebaseio.com",
+    "project_id": "duanversion1",
+    "storage_bucket": "duanversion1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:189899517898:android:a18deff6a7c37ad586a933",
+        "android_client_info": {
+          "package_name": "com.duanversion1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "189899517898-aqo54nai0osbdb455ik73tb6b4ue09a4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.duanversion1",
+            "certificate_hash": "f148fbf140036eb48b5e0eb7c0ddd3a7fec1e24b"
+          }
+        },
+        {
+          "client_id": "189899517898-k4u41r45kijp653qsa3k72ll7m2e7ck2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKZrhy9P7vHw0Ldb3pgr5Cah_2JPE6F1A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "189899517898-k4u41r45kijp653qsa3k72ll7m2e7ck2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
