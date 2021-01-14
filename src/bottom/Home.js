@@ -7,13 +7,40 @@ import {
   TouchableOpacity,
   Dimensions,
   Modal,
+  ActivityIndicatorBase,
 } from 'react-native';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import auth from '@react-native-firebase/auth';
 import {FlatList} from 'react-native-gesture-handler';
 import database from '@react-native-firebase/database';
+import {ActivityIndicator} from 'react-native';
+import Geolocation from '@react-native-community/geolocation';
 
+const initialState = {
+  latitude: 0,
+  longitude: 0,
+  latitudeDelta: 0.0922,
+  longitudeDelta: 0.0421,
+};
 const Home = ({navigation}) => {
+  //GPS
+  const [currentPosition, setCurrentPosition] = useState(initialState);
+
+  useEffect(() => {
+    Geolocation.getCurrentPosition(
+      (position) => {
+        const {longitude, latitude} = position.coords;
+        setCurrentPosition({
+          ...currentPosition,
+          latitude,
+          longitude,
+        });
+      },
+      (error) => alert(error.message),
+      {timeout: 20000, maximumAge: 1000},
+    );
+  }, []);
+
   //Modal
   const [modalVisible, setModalVisible] = useState(false);
   const NewsItem1 = (props) => (
@@ -68,18 +95,15 @@ const Home = ({navigation}) => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     return subscriber;
   }, []);
-  return (
+  return currentPosition.latitude ? (
     <View style={styles.container}>
       <MapView
+        showsUserLocation
         provider={PROVIDER_GOOGLE}
         style={styles.map}
-        initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}></MapView>
+        initialRegion={currentPosition}></MapView>
       <TouchableOpacity
+        style={styles.menuButton}
         onPress={() => {
           navigation.openDrawer();
         }}>
@@ -170,6 +194,8 @@ const Home = ({navigation}) => {
         </TouchableOpacity>
       </Modal>
     </View>
+  ) : (
+    <ActivityIndicator style={{flex: 1}} animating size="large" />
   );
 };
 
@@ -180,6 +206,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  menuButton: {
+    position: 'absolute',
+  },
   menu: {
     width: 40,
     height: 40,
@@ -188,7 +217,7 @@ const styles = StyleSheet.create({
   },
   map: {
     width: windowWidth,
-    height: windowHeight - 250,
+    height: windowHeight - 270,
   },
   viewBottom: {
     width: windowWidth,
